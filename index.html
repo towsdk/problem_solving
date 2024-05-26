@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            margin-top: 20px;
+        }
+        .video-player {
+            flex: 3;
+            margin-right: 20px;
+        }
+        .playlist {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        .playlist-item {
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .playlist-item:hover {
+            background-color: #f0f0f0;
+        }
+        .active {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube Interface</h1>
+    <div class="container">
+        <div class="video-player">
+            <!-- Default Video -->
+            <iframe id="mainVideo" width="560" height="315" 
+                src="https://www.youtube.com/embed/_OBlgSz8sSM" 
+                frameborder="0" allow="accelerometer; autoplay; 
+                clipboard-write; encrypted-media; gyroscope; 
+                picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="playlist">
+            <!-- List of Videos -->
+            <div class="playlist-item" data-video="https://www.youtube.com/embed/_OBlgSz8sSM">Video 1</div>
+            <div class="playlist-item" data-video="https://www.youtube.com/embed/_OBlgSz8sSM">Video 2</div>
+            <div class="playlist-item" data-video="https://www.youtube.com/embed/_OBlgSz8sSM">Video 3</div>
+            <div class="playlist-item" data-video="https://www.youtube.com/embed/_OBlgSz8sSM">Video 4</div>
+            <div class="playlist-item" data-video="https://www.youtube.com/embed/_OBlgSz8sSM">Video 5</div>
+        </div>
+    </div>
+
+    <script>
+        // Reference to the main video iframe
+        const mainVideo = document.getElementById("mainVideo");
+
+        // All playlist items
+        const playlistItems = document.querySelectorAll(".playlist-item");
+
+        // Function to set active class and change video
+        const setActiveVideo = (item) => {
+            // Clear active class from all items
+            playlistItems.forEach((item) => item.classList.remove("active"));
+
+            // Set active class on clicked item
+            item.classList.add("active");
+
+            // Change the video src
+            const videoUrl = item.getAttribute("data-video");
+            mainVideo.src = videoUrl;
+        };
+
+        // Add click event listeners to playlist items
+        playlistItems.forEach((item) => {
+            item.addEventListener("click", () => setActiveVideo(item));
+        });
+    </script>
+</body>
+</html>
